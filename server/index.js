@@ -2,11 +2,12 @@
 import express from 'express';
 import  mongoose  from 'mongoose';
 import  dotenv  from 'dotenv';
+import  cors  from 'cors';
 import router from './src/routers/users.js';
 const app = express()
 app.use(express.json())
 dotenv.config()
-
+app.use(cors())
 
 
 app.use("/",router)

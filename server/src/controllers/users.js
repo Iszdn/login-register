@@ -24,14 +24,14 @@ export const userRegister = async (req, res) => {
 export const userLogin = async (req, res) => {
     try {
         const { username, password } = req.body;
-
+        const user = await Users.findOne({ username })
         if (!username) {
             res.status(500).res.json("user not found!")
         }
         if (!password) {
             res.status(500).res.json("user not found!")
         }
-        const user = await Users.findOne({ username })
+      
         if (!user) {
             res.status(500).res.json("user not found!")
         }
@@ -39,7 +39,7 @@ export const userLogin = async (req, res) => {
             res.status(404)
         }
         const token = jwt.sign({ username:username,role:user.role  }, secretKey, { expiresIn: '1h' });
-        res.send(token)
+        res.json(token)
 
     } catch (error) {
         res.status(500).json({ message: error })
