@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../context/authContext'
 import "./index.css"
 const Navbar = () => {
-const  {user}=useContext(AuthContext)
-
+  const { decodedToken } = useContext(AuthContext)
+  const { removeToken } = useContext(AuthContext)
+  
   return (
     <div className='navbar'>
-      
-        <Link to="/">home</Link>
-        
-       <Link to="/login">login</Link>
-       
-{
- user ? ( <><Link to="/account">account</Link>  <Link>log out</Link></>)  :  (<Link to="/register">sign up</Link> )
-}
-        
+
+      <Link to="/">home</Link>
+
+
+
+      {
+        decodedToken ? (<><Link to="/account">account</Link> <Link to="/admin">profile</Link>  <button onClick={removeToken} >log out</button></>) : (<> <Link to="/login">login</Link> <Link to="/register">sign up</Link></>)
+      }
+
     </div>
   )
 }
