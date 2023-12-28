@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/authContext'
 import "./index.css"
 const Navbar = () => {
   const { decodedToken } = useContext(AuthContext)
-  const { removeToken } = useContext(AuthContext)
+  
   
   return (
     <div className='navbar'>
@@ -14,7 +14,12 @@ const Navbar = () => {
 
 
       {
-        decodedToken ? (<><Link to="/account">account</Link> <Link to="/admin">profile</Link>  <button onClick={removeToken} >log out</button></>) : (<> <Link to="/login">login</Link> <Link to="/register">sign up</Link></>)
+        decodedToken ? (<><Link to="/account">account</Link> 
+        {
+          decodedToken.role==="admin" && <Link to="/admin">admin</Link> 
+        }
+        
+        </>) : (<> <Link to="/login">login</Link> <Link to="/register">sign up</Link></>)
       }
 
     </div>
